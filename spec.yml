@@ -1,0 +1,47 @@
+openapi: 3.0.3
+info:
+  title: STD24001
+  description: This is a specification for STD24001
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+paths:
+  /cars:
+    post:
+      requestBody:
+        description: A list containing the new cars to be added
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Car'
+      responses:
+        '201':
+          description: The new cars added to the list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        identifier:
+          type: string
+        brand:
+          type: string
+        model:
+          type: string
+        characteristics:
+          $ref: '#/components/schemas/Characteristics'
+    Characteristics:
+      type: object
+      properties:
+        max_speed:
+          type: integer
+        max_fuel_capacity:
+          type: integer

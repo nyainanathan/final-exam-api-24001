@@ -13,3 +13,19 @@ app = FastAPI()
 @app.get("/ping")
 def root():
     return Response(content="pong", status_code=200, media_type="text/plain")
+
+class Characteristics(BaseModel):
+    max_speed: int
+    max_fuel_capacity: int
+
+class CarPayload(BaseModel):
+    indentifier: str
+    brand: str
+    model: str
+    characteristics: Characteristics
+
+cars : List[CarPayload] = []
+@app.post("/cars")
+def create_cars(newCars: List[CarPayload]):
+    cars.extend(newCars)
+    return JSONResponse(content={"cars": cars}, status_code=201)
