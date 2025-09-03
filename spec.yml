@@ -34,8 +34,39 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Car'
+  /cars/{id}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/Identifier'
+      responses:
+        '200':
+          description: The car with its id mentionned in the path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '400':
+          description: The car mentionned does not exist
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_message'
+              example: {"message": "We don't have data on the car you are searching"}
+
 components:
+  parameters:
+    Identifier:
+      name: id
+      in: path
+      required: false
+      schema:
+        type: integer
   schemas:
+    Error_message:
+      type: object
+      properties:
+        message:
+          type: string
     Car:
       type: object
       properties:
