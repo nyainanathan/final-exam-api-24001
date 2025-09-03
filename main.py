@@ -44,4 +44,11 @@ def get_car(id: int):
             return JSONResponse(content={"car": car}, status_code=200)
     return JSONResponse(content={"Message": "We don't have data on the car you are searching"}, status_code=404)
 
+@app.put("/cars/{id}/characteristics")
+def update_characteristics(id: int, characteristics_updated: Characteristics):
+    for car in cars:
+        if car.id == id:
+            car.characteristics = characteristics_updated
+            return JSONResponse(content={"car": car}, status_code=200)
+    return JSONResponse(content={"Message": "We don't have data on the car you are searching"}, status_code=404)
 
