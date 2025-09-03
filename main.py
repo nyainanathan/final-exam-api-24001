@@ -37,3 +37,11 @@ def get_cars():
         required_cars.append(car.model_dump())
     return JSONResponse(content={"cars": required_cars}, status_code=200)
 
+@app.get("/cars/{id}")
+def get_car(id: int):
+    for car in cars:
+        if car.id == id:
+            return JSONResponse(content={"car": car}, status_code=200)
+    return JSONResponse(content={"Message": "We don't have data on the car you are searching"}, status_code=404)
+
+
