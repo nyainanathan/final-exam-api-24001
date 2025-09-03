@@ -29,3 +29,11 @@ cars : List[CarPayload] = []
 def create_cars(newCars: List[CarPayload]):
     cars.extend(newCars)
     return JSONResponse(content={"cars": cars}, status_code=201)
+
+@app.get("/cars")
+def get_cars():
+    required_cars = []
+    for car in cars:
+        required_cars.append(car.model_dump())
+    return JSONResponse(content={"cars": required_cars}, status_code=200)
+
