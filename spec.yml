@@ -6,6 +6,15 @@ info:
 servers:
   - url: http://localhost:8000
 paths:
+  /ping:
+    get:
+      responses:
+        '200':
+          description: Return a simple pong string
+          content:
+            text/plain:
+              schema:
+                example: pong
   /cars:
     post:
       requestBody:
