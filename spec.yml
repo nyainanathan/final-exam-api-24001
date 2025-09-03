@@ -52,7 +52,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error_message'
               example: {"message": "We don't have data on the car you are searching"}
-
+    put:
+      requestBody:
+        description: The new characteristics of the car
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Characteristics'
+      responses:
+        '201':
+          description: The characteristics of the new car
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '400':
+          description: The updated cars
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_message'
+              example: {"message": "We don't have data on the car you are searching"}
 components:
   parameters:
     Identifier:
@@ -69,6 +89,8 @@ components:
           type: string
     Car:
       type: object
+      allOf:
+        - $ref: '#/components/schemas/Characteristics'
       properties:
         identifier:
           type: string
@@ -76,8 +98,6 @@ components:
           type: string
         model:
           type: string
-        characteristics:
-          $ref: '#/components/schemas/Characteristics'
     Characteristics:
       type: object
       properties:
